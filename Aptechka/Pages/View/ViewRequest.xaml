@@ -9,27 +9,24 @@
       Title="ViewRequest">
 
     <Grid>
-        <StackPanel 
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Center" 
-            Width="200" Height="200"
-            Background="#E7F0FB"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="22*"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            Background="#E7F0FB" Width="170" Margin="0,25,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="400"
             >
             <Button 
                     Background="#81A5C5"  
                     Content="Закупки" x:Name="BtnSpecialty" 
                     Click="BtnSpecialty_Click"
-                    Width="150"/>
+                    Width="150" Height="28"/>
 
         </StackPanel>
         <DataGrid 
             Background="#E7F0FB"
             AutoGenerateColumns="True"
             IsReadOnly="True"
-            Name="GridListRequest" 
-            HorizontalAlignment="Right" 
-            Width="450" Height="400">
-
-        </DataGrid>
+            Name="GridListRequest" Height="400" Margin="225,25,70,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
     </Grid>
 </Page>

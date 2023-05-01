@@ -27,8 +27,8 @@ namespace Aptechka.Pages.View
         {
             InitializeComponent();
             db = new AptechkaContext();
-            db.Requests.Load(); // загружаем данные
-            GridListPurchase.ItemsSource = db.Requests.Local.ToBindingList(); // устанавливаем привязку к кэшу
+            db.Purchases.Load(); // загружаем данные
+            GridListPurchase.ItemsSource = db.Purchases.Local.ToBindingList(); // устанавливаем привязку к кэшу
         }
 
         private void BtnSpecialty_Click(object sender, RoutedEventArgs e)
