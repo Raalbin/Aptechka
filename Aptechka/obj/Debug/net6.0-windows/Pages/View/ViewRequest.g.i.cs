@@ -69,7 +69,7 @@ namespace Aptechka.Pages.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Aptechka;component/pages/view/viewrequest.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Aptechka;V1.0.0.0;component/pages/view/viewrequest.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Pages\View\ViewRequest.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
