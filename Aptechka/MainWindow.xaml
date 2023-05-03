@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AptechkaWPF"
         mc:Ignorable="d"
-        Title="Аптечный склад, v.1.0a" Height="476" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Аптечный склад, v.1.0a" Height="476" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" Icon="/Биба.jpg">
     <Grid Margin="0,0,0,0">
         <DataGrid x:Name="fDataGrid" Margin="183,10,10,10" AutoGeneratingColumn="fDataGrid_AutoGeneratingColumn" FrozenColumnCount="1" BeginningEdit="fDataGrid_BeginningEdit" AddingNewItem="fDataGrid_AddingNewItem" IsTextSearchEnabled="True"/>
         <Button Content="Аптеки" HorizontalAlignment="Left" Height="31" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
