@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AptechkaWPF
 {
@@ -13,6 +14,15 @@ namespace AptechkaWPF
         public string? Street { get; set; }
 
         public string? Home { get; set; }
+
+        [NotMapped]
+        public string Name
+        {
+            get
+            {
+                return City + ", " + Street + ", " + Home;
+            }
+        }
 
         public virtual ICollection<Drugstore> Drugstores { get; set; } = new List<Drugstore>();
 

@@ -15,19 +15,19 @@ namespace AptechkaWPF {
         {
         }
 
-        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; } = null!;
 
-        public virtual DbSet<Drug> Drugs { get; set; }
+        public virtual DbSet<Drug> Drugs { get; set; } = null!;
 
-        public virtual DbSet<Drugstore> Drugstores { get; set; }
+        public virtual DbSet<Drugstore> Drugstores { get; set; } = null!;
 
-        public virtual DbSet<Producer> Producers { get; set; }
+        public virtual DbSet<Producer> Producers { get; set; } = null!;
 
-        public virtual DbSet<Purchase> Purchases { get; set; }
+        public virtual DbSet<Purchase> Purchases { get; set; } = null!;
 
-        public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<Request> Requests { get; set; } = null!;
 
-        public virtual DbSet<Status> Statuses { get; set; }
+        public virtual DbSet<Status> Statuses { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 

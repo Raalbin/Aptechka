@@ -17,20 +17,6 @@ namespace AptechkaWPF
 
         public string? PharmacyInn { get; set; }
 
-        [NotMapped]
-        public string TextAddr
-        {
-            get
-            {
-                if (Address != null)
-                {
-                    return Address.City + ", " + Address.Street + ", " + Address.Home;
-                }
-
-                return "Адрес не задан";
-            }
-        }
-
         public virtual Address? Address { get; set; }
 
         public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
