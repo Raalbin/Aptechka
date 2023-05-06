@@ -101,7 +101,6 @@ C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\D
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\App.g.cs
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka_MarkupCompile.cache
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka_MarkupCompile.lref
-C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\App.baml
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\MainWindow.baml
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka.g.resources
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka.GeneratedMSBuildEditorConfig.editorconfig
@@ -114,3 +113,6 @@ C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\D
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka.pdb
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka.genruntimeconfig.cache
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\ref\Aptechka.dll
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\App.baml
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\RequestForm.g.cs
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\RequestForm.baml

@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace AptechkaWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly AptechkaContext dbcontext;
@@ -27,93 +26,34 @@ namespace AptechkaWPF
         {
             InitializeComponent();
 
+            CultureInfo newCulture = CultureInfo.CreateSpecificCulture("ru-RU");
+            Thread.CurrentThread.CurrentUICulture = newCulture;
+            Thread.CurrentThread.CurrentCulture = newCulture;
+
             dbcontext = new AptechkaContext();
 
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            dbcontext.Drugstores.Load();
-            dbcontext.Addresses.Load();
-
-            fDataGrid.AutoGenerateColumns = true;
-            fDataGrid.ItemsSource = dbcontext.Drugstores.Local.ToObservableCollection();
+            mainFrame.NavigationUIVisibility = NavigationUIVisibility.Visible;
+            toRequestsForm();
         }
 
-        
-
+ 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             dbcontext.Dispose();
         }
 
-        private void fDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Requests_Click(object sender, RoutedEventArgs e)
         {
-
+            toRequestsForm();
         }
 
-        private void btSave(object sender, RoutedEventArgs e)
+        private void toRequestsForm()
         {
-            dbcontext.SaveChanges();
-        }
-
-        private void fDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "TextAddr":
-                    e.Column.Header = "Адрес";
-                    break;
-                case "Name":
-                    e.Column.Header = "Название";
-                    break;
-                case "Telephone":
-                    e.Column.Header = "Телефон";
-                    break;
-                case "PharmacyInn":
-                    e.Column.Header = "ИНН";
-                    break;
-                case "Id":
-                    //e.Column.IsFrozen = true;
-                    e.Column.IsReadOnly = true;
-                    break;
-                case "AddressId":
-                case "Address":
-                case "Requests":
-                    e.Column.Visibility = Visibility.Hidden;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void fDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-            int rowId = ((Drugstore)e.Row.Item).Id;
-            if (rowId != 0)
-            {
-                System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + rowId);
-            } else
-            {
-                System.Windows.MessageBox.Show("Создаём новую запись в таблице");
-            }
-            
-            e.Cancel = true;
-        }
-
-        private void fDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
-            //System.Windows.MessageBox.Show("Insert");
+            mainFrame.Navigate(new RequestForm(dbcontext));       
         }
     }
 }

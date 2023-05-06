@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Биба.jpg" />
+    <None Remove="icon.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Биба.jpg" />
+    <Resource Include="Image\icon.jpg" />
   </ItemGroup>
 
 </Project>

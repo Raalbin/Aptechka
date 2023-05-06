@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\App.xaml
-11407045341
+2-1577145159
 
-13866848624
+142012406994
 217-83980117
-MainWindow.xaml;
+Forms\RequestForm.xaml;MainWindow.xaml;
 
 True
 

@@ -1,0 +1,36 @@
+﻿<Page x:Name ="fmRequest" x:Class="AptechkaWPF.RequestForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AptechkaWPF"
+        mc:Ignorable="d"
+        Title="Жрунал Заявок" Loaded="fmRequest_Loaded" >
+
+        <Grid Margin="0,0,0,0">
+            <Grid.Resources>
+                <DataTemplate x:Key="DateTemplate" >
+                    <TextBlock Text="{Binding DateIn, StringFormat={}{0:ddd dd MMM yyyy HH:MM}}" HorizontalAlignment="Center" />
+                </DataTemplate>
+                <DataTemplate x:Key="DateTemplate2" >
+                    <TextBlock Text="{Binding DateFinish, StringFormat={}{0:ddd dd MMM yyyy HH:MM}}" HorizontalAlignment="Center" />
+                </DataTemplate>
+                <!--DataTemplate for the Published Date column when in edit mode.
+            <DataTemplate x:Key="EditingDateTemplate">
+                <DatePicker SelectedDate="{Binding PublishDate}"/>
+            </DataTemplate>
+             -->
+            </Grid.Resources>
+        <DataGrid x:Name="fDataGrid" Margin="0,0,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
+                  IsReadOnly="True" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch" ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="id" Binding="{Binding Id}" MaxWidth="40"/>
+                <DataGridTextColumn Header="Аптека"  Binding="{Binding Drugstore.Name}"/>
+                <DataGridTemplateColumn Header="Дата Закрытия" CellTemplate="{StaticResource DateTemplate}"/>
+                <DataGridTemplateColumn Header="Дата Открытия" CellTemplate="{StaticResource DateTemplate2}"/>
+                <DataGridTextColumn Header="Статус"  Binding="{Binding Status.Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
