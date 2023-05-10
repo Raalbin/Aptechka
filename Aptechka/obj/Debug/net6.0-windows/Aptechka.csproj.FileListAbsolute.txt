@@ -113,6 +113,11 @@ C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\D
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka.pdb
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka.genruntimeconfig.cache
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\ref\Aptechka.dll
-C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\App.baml
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\RequestForm.g.cs
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\RequestForm.baml
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\DrugsForm.g.cs
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\DrugstoresForm.g.cs
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\ProducersForm.g.cs
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\DrugsForm.baml
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\DrugstoresForm.baml
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\ProducersForm.baml

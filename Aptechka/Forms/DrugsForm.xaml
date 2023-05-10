@@ -1,0 +1,32 @@
+﻿<Page x:Name ="fmDrugs" x:Class="AptechkaWPF.DrugsForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AptechkaWPF"
+        mc:Ignorable="d"
+        Title="Справочник Медикаментов" Loaded="fmDrugs_Loaded" >
+
+        <Grid Margin="0,0,0,0">
+            <Grid.Resources>
+            <DataTemplate x:Key="DateOfManufacture" >
+                <TextBlock Text="{Binding DateOfManufacture, StringFormat={}{0:ddd dd MMM yyyy HH:MM}}" HorizontalAlignment="Center" />
+                </DataTemplate>
+            <DataTemplate x:Key="BestBeforeDate" >
+                <TextBlock Text="{Binding BestBeforeDate, StringFormat={}{0:ddd dd MMM yyyy HH:MM}}" HorizontalAlignment="Center" />
+                </DataTemplate>
+            </Grid.Resources>
+        <DataGrid x:Name="fDataGrid" Margin="0,0,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
+                  IsReadOnly="True" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch" ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="id" Binding="{Binding Id}" MaxWidth="40"/>
+                <DataGridTextColumn Header="Название"  Binding="{Binding Name}" MinWidth="200"/>
+                <DataGridTemplateColumn Header="Дата производства" CellTemplate="{StaticResource DateOfManufacture}"/>
+                <DataGridTemplateColumn Header="Срок годности" CellTemplate="{StaticResource BestBeforeDate}"/>
+                <DataGridTextColumn Header="Цена"  Binding="{Binding Price}" MaxWidth="60"/>
+                <DataGridTextColumn Header="Производитель"  Binding="{Binding Producer.Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

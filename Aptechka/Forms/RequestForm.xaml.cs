@@ -22,12 +22,30 @@ namespace AptechkaWPF
     {
 
         private AptechkaContext dbcontext;
+        private readonly int formType;
 
-        public RequestForm(AptechkaContext dbContext)
+        /// <summary>
+        /// Конструктор формы списка заявок или списка активных корзин
+        /// <param name="dbContext">контекст entity framework</param>
+        /// <param name="basket">Тип списка. 1 - корзина, 0 - обычный (default)</param>
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
+        public RequestForm(AptechkaContext dbContext, int basket = 0)
         {
             InitializeComponent();
 
             dbcontext = dbContext;
+            formType = basket;
+
+            if (formType == 0)
+            {
+                fmRequest.Title = "Жрунал Заявок";
+            }
+            else
+            {
+                fmRequest.Title = "Жрунал Корзин";
+            }
+
         }
 
         private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -43,11 +61,24 @@ namespace AptechkaWPF
 
         private void ShowRequests()
         {
-            var req = dbcontext.Requests
+            List<Request> req;
+
+            if (formType == 0)
+            {
+                req = dbcontext.Requests
                 .Where(r => r.Status!.Code != 100)
                 .Include(r => r.Status)
                 .Include(r => r.Drugstore)
                 .ToList();
+            }
+            else
+            {
+                req = dbcontext.Requests
+                    .Where(r => r.Status!.Code == 100)
+                    .Include(r => r.Status)
+                    .Include(r => r.Drugstore)
+                    .ToList();
+            }
 
             fDataGrid.ItemsSource = req;
         }
