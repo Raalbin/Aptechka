@@ -18,15 +18,14 @@ namespace AptechkaWPF
     /// <summary>
     /// Логика взаимодействия для Request.xaml
     /// </summary>
-    public partial class DrugsForm : Page
+    public sealed partial class DrugsForm : Page
     {
 
         private AptechkaContext dbcontext;
 
         /// <summary>
-        /// Конструктор формы списка заявок или списка активных корзин
+        /// Конструктор формы списка медикаментов
         /// <param name="dbContext">контекст entity framework</param>
-        /// <param name="basket">Тип списка. 1 - корзина, 0 - обычный (default)</param>
         /// <return>Не возвращает ничего</return>
         /// </summary>
         public DrugsForm(AptechkaContext dbContext)
@@ -43,15 +42,11 @@ namespace AptechkaWPF
             {
                 System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + ((Drug)drg).Name);
             }
-
-
         }
 
         private void ShowDrugs()
         {
-            List<Drug> drg;
-
-            drg = dbcontext.Drugs
+            List<Drug> drg = dbcontext.Drugs
                 .Include(d => d.Producer)
                 .ToList();
 

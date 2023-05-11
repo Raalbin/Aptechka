@@ -15,10 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AptechkaWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для ProducersForm.xaml
-    /// </summary>
-    public partial class ProducersForm : Page
+    public sealed partial class ProducersForm : Page
     {
 
         private AptechkaContext dbcontext;
@@ -46,9 +43,7 @@ namespace AptechkaWPF
 
         private void ShowProducers()
         {
-            List<Producer> prd;
-
-            prd = dbcontext.Producers
+            List<Producer> prd = dbcontext.Producers
                 .Include(d => d.Address)
                 .ToList();
 

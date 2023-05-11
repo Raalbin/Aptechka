@@ -18,9 +18,10 @@ using System.Windows.Shapes;
 
 namespace AptechkaWPF
 {
-    public partial class MainWindow : Window
+    public sealed partial class MainWindow : Window
     {
         private readonly AptechkaContext dbcontext;
+        private static Frame navigationFrame = null!;
 
         public MainWindow()
         {
@@ -30,17 +31,36 @@ namespace AptechkaWPF
             Thread.CurrentThread.CurrentUICulture = newCulture;
             Thread.CurrentThread.CurrentCulture = newCulture;
 
+            navigationFrame = mainFrame;
+
             dbcontext = new AptechkaContext();
 
         }
 
+        /// <summary>
+        /// Получить элемент Frame для новой страницы
+        /// </summary>
+        /// <returns>объект Frame главной формы</returns>
+        public static Frame GetNavFrame()
+        {
+            return navigationFrame;
+        }
+
+        /// <summary>
+        /// Обработчик загрузки формы. После загрузки, элементы навигации становятся видимы
+        /// и вызывается страница по-умолчанию.
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationUIVisibility = NavigationUIVisibility.Visible;
             toRequestsForm();
         }
 
- 
+        /// <summary>
+        /// Обработчик закрытия формы. При закрытии формы база данных освобождается.
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             dbcontext.Dispose();
@@ -63,7 +83,7 @@ namespace AptechkaWPF
         /// </summary>
         private void toRequestsForm(int basket = 0)
         {
-                mainFrame.Navigate(new RequestForm(dbcontext, basket));
+            mainFrame.Navigate(new RequestForm(dbcontext, basket));
         }
 
         /// <summary>

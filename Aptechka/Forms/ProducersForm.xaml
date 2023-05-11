@@ -10,9 +10,11 @@
         <Grid Margin="0,0,0,0">
             <Grid.Resources>
             </Grid.Resources>
-            <DataGrid x:Name="fDataGrid" Margin="0,0,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
+            <Label Content="Справочник производителей" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+            <Button Content="Добавить" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="70"/>
+            <DataGrid x:Name="fDataGrid" Margin="0,32,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
                   IsReadOnly="True" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Stretch" ColumnWidth="*" Background="#FFE7F0FB">
+                  HorizontalContentAlignment="Stretch" ColumnWidth="*">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="id" Binding="{Binding Id}" MaxWidth="40"/>
                 <DataGridTextColumn Header="Название"  Binding="{Binding Name}" MinWidth="100"/>

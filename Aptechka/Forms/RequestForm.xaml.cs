@@ -15,14 +15,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AptechkaWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для Request.xaml
-    /// </summary>
-    public partial class RequestForm : Page
+
+    public sealed partial class RequestForm : Page
     {
 
+        private static readonly string regularTAG = "Журнал Заявок";
+        private static readonly string basketTAG = "Журнал Корзин";
         private AptechkaContext dbcontext;
         private readonly int formType;
+        private ContextMenu contextMenu;
 
         /// <summary>
         /// Конструктор формы списка заявок или списка активных корзин
@@ -39,26 +40,90 @@ namespace AptechkaWPF
 
             if (formType == 0)
             {
-                fmRequest.Title = "Жрунал Заявок";
+                fmRequest.Title = regularTAG;
+                fmLabel.Content = regularTAG;
             }
             else
             {
-                fmRequest.Title = "Жрунал Корзин";
+                fmRequest.Title = basketTAG;
+                fmLabel.Content = basketTAG;
             }
 
+            contextMenu = new ContextMenu();
+
+            MenuItem mi = new MenuItem();
+            mi.Header = "Редактировать";
+            mi.Tag = 1;
+            mi.Click += Menu_EditItem;
+            contextMenu.Items.Add(mi);
+
+            mi = new MenuItem();
+            mi.Header = "Добавить";
+            mi.Tag = 2;
+            mi.Click += Menu_AddItem;
+            contextMenu.Items.Add(mi);
+
+            mi = new MenuItem();
+            mi.Header = "Удалить";
+            mi.Tag = 3;
+            mi.Click += Menu_DeleteItem;
+            contextMenu.Items.Add(mi);
+
+            fDataGrid.ContextMenu = contextMenu;
+        }
+
+        private void Menu_EditItem(object sender, RoutedEventArgs e)
+        {
+            OpenEditForm();
+        }
+        private void Menu_AddItem(object sender, RoutedEventArgs e)
+        {
+            OpenEditForm();
+        }
+
+        private void Menu_DeleteItem(object sender, RoutedEventArgs e)
+        {
+            Request req = (Request)fDataGrid.SelectedItem;
+
+            if (req != null)
+            {
+
+                MessageBoxResult rez = MessageBox.Show("Вы действительно хотите удалить запись " + 
+                    req.Id + ", " + req.Drugstore!.Name + "?", 
+                    "Винимание!", 
+                    MessageBoxButton.YesNo, 
+                    MessageBoxImage.Warning);
+
+                if (rez != MessageBoxResult.Yes) { return; }
+
+                dbcontext.Requests.Remove(req);
+                try
+                {
+                    dbcontext.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    System.Windows.MessageBox.Show("Произошла ошибка при удалении строки!\n" + e);
+                }
+
+            }
+
+            ShowRequests();
         }
 
         private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var req = fDataGrid.SelectedItem;
-            if (req != null)
-            {
-                System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + ((Request)req).Drugstore!.Name);
-            }
-
-
+            OpenEditForm();
         }
 
+        /// <summary>
+        /// Процедура открывает форму редактирования текущей заявки
+        /// </summary>
+        private void OpenEditForm()
+        {
+            Request req = (Request)fDataGrid.SelectedItem;
+            MainWindow.GetNavFrame().Navigate(new RequestEditForm(dbcontext, req));  
+        }
         private void ShowRequests()
         {
             List<Request> req;

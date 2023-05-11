@@ -15,13 +15,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AptechkaWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для DrugstoresForm.xaml
-    /// </summary>
-    public partial class DrugstoresForm : Page
+     public sealed partial class DrugstoresForm : Page
+ 
     {
 
         private AptechkaContext dbcontext;
+        private ContextMenu contextMenu;
 
         /// <summary>
         /// Конструктор формы списка заявок или списка активных корзин
@@ -33,19 +32,111 @@ namespace AptechkaWPF
             InitializeComponent();
 
             dbcontext = dbContext;
+
+
+            // Создаём контекстное меню для элемента DataGrid
+            //{
+            contextMenu = new ContextMenu();
+
+            MenuItem mi = new MenuItem();
+            mi.Header = "Редактировать";
+            mi.Tag = 1;
+            mi.Click += Menu_EditItem;
+            contextMenu.Items.Add(mi);
+
+            mi = new MenuItem();
+            mi.Header = "Добавить";
+            mi.Tag = 2;
+            mi.Click += Menu_AddItem;
+            contextMenu.Items.Add(mi);
+
+            mi = new MenuItem();
+            mi.Header = "Удалить";
+            mi.Tag = 3;
+            mi.Click += Menu_DeleteItem;
+            contextMenu.Items.Add(mi);
+            //}
+
+            fDataGrid.ContextMenu = contextMenu;
+
         }
 
-        private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Обработчик контекстного пункта меню "Редактировать"
+        /// открывает форму редактирования текущей записи
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
+        private void Menu_EditItem(object sender, RoutedEventArgs e)
         {
-            var drg = fDataGrid.SelectedItem;
+            var req = fDataGrid.SelectedItem;
+            if (req != null)
+            {
+                ;
+            }
+        }
+
+        /// <summary>
+        /// Обработчик контекстного пункта меню "Добавить"
+        /// открывает форму редактирования новой записи
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
+        private void Menu_AddItem(object sender, RoutedEventArgs e)
+        {
+            ;
+        }
+
+        /// <summary>
+        /// Обработчик контекстного пункта меню "Удалить"
+        /// удаляет текущую строку из базы данных
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
+        private void Menu_DeleteItem(object sender, RoutedEventArgs e)
+        {
+            Drugstore drg = (Drugstore)fDataGrid.SelectedItem;
+
             if (drg != null)
             {
-                System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + ((Drugstore)drg).Name);
+
+                MessageBoxResult rez = MessageBox.Show("Вы действительно хотите удалить запись " + drg.Name + "?", "Винимание!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (rez != MessageBoxResult.Yes) { return; }
+                
+                dbcontext.Drugstores.Remove(drg);
+
+                try
+                {
+                    dbcontext.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    System.Windows.MessageBox.Show("Произошла ошибка при удалении строки!\n" + e);
+                }
+                
+            }
+
+            ShowDrugstores();
+        }
+
+        /// <summary>
+        /// Обработчик двойного нажатия в элементе DataGrid. При двойном щелчке
+        /// открывается форма редактирования выбранной строки.
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
+        private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Drugstore drg = (Drugstore)fDataGrid.SelectedItem;
+            if (drg != null)
+            {
+                System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + drg.Name);
             }
 
 
         }
 
+        /// <summary>
+        /// Процедура выполняет запрос к БД и заполняет элемент формы данными.
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
         private void ShowDrugstores()
         {
             List<Drugstore> drg;

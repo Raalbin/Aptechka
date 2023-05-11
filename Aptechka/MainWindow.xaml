@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AptechkaWPF"
         mc:Ignorable="d"
-        Title="Aptechka" Height="509" Width="857" Loaded="Window_Loaded" Closing="Window_Closing" Icon="/image/аптека_иконка.png">
+        Title="Аптечный склад, v.1.0a" Height="509" Width="857" Loaded="Window_Loaded" Closing="Window_Closing" Icon="Image/аптека_иконка.png">
     <Grid Margin="0,0,0,0">
-        <Button Content="Аптеки" HorizontalAlignment="Left" Height="36" Margin="10,166,0,0" VerticalAlignment="Top" Width="160" Click="Drugstores_Click"/>
-        <Button Content="Медикаменты" HorizontalAlignment="Left" Height="37" Margin="10,61,0,0" VerticalAlignment="Top" Width="160" Click="Drugs_Click"/>
-        <Button Content="Поставщики" HorizontalAlignment="Left" Height="37" Margin="10,113,0,0" VerticalAlignment="Top" Width="160" Click="Producers_Click"/>
-        <Button Content="Заявки" HorizontalAlignment="Left" Height="37" Margin="10,10,0,0" VerticalAlignment="Top" Width="160" Click="Requests_Click"/>
-        <Button Content="Корзина" HorizontalAlignment="Left" Margin="10,0,0,10" Width="160" Height="36" VerticalAlignment="Bottom" Click="Basket_Click"/>
+        <Button Content="Аптеки" HorizontalAlignment="Left" Height="31" Margin="10,118,0,0" VerticalAlignment="Top" Width="160" Click="Drugstores_Click"/>
+        <Button Content="Медикаменты" HorizontalAlignment="Left" Height="31" Margin="10,46,0,0" VerticalAlignment="Top" Width="160" Click="Drugs_Click"/>
+        <Button Content="Поставщики" HorizontalAlignment="Left" Height="31" Margin="10,82,0,0" VerticalAlignment="Top" Width="160" Click="Producers_Click"/>
+        <Button Content="Заявки" HorizontalAlignment="Left" Height="31" Margin="10,10,0,0" VerticalAlignment="Top" Width="160" Click="Requests_Click"/>
+        <Button Content="Корзина" HorizontalAlignment="Left" Margin="10,0,0,10" Width="160" Height="31" VerticalAlignment="Bottom" Click="Basket_Click"/>
 
-        <Frame x:Name="mainFrame" Margin="183,10,10,10" NavigationUIVisibility="Automatic" Grid.IsSharedSizeScope="True" UseLayoutRounding="False" Grid.ColumnSpan="2" Foreground="#FFD1E2F7" Background="#FFE7F0FB"/>
+        <Frame x:Name="mainFrame" Margin="183,10,10,10" NavigationUIVisibility="Automatic" Grid.IsSharedSizeScope="True" UseLayoutRounding="False" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

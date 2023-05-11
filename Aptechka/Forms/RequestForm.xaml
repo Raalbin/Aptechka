@@ -8,27 +8,25 @@
         Title="Жрунал Заявок" Loaded="fmRequest_Loaded" >
 
         <Grid Margin="0,0,0,0">
-            <Grid.Resources>
-                <DataTemplate x:Key="DateTemplate" >
-                    <TextBlock Text="{Binding DateIn, StringFormat={}{0:ddd dd MMM yyyy HH:MM}}" HorizontalAlignment="Center" />
+        <Grid.Resources>
+            <!-- ddd dd MMM yyyy HH:MM -->
+            <DataTemplate x:Key="DateIn" >
+                <TextBlock Text="{Binding DateIn, StringFormat={}{0:dd MMM yyyy}}" HorizontalAlignment="Center" />
                 </DataTemplate>
-                <DataTemplate x:Key="DateTemplate2" >
-                    <TextBlock Text="{Binding DateFinish, StringFormat={}{0:ddd dd MMM yyyy HH:MM}}" HorizontalAlignment="Center" />
+            <DataTemplate x:Key="DateFinish" >
+                <TextBlock Text="{Binding DateFinish, StringFormat={}{0:dd MMM yyyy}}" HorizontalAlignment="Center" />
                 </DataTemplate>
-                <!--DataTemplate for the Published Date column when in edit mode.
-            <DataTemplate x:Key="EditingDateTemplate">
-                <DatePicker SelectedDate="{Binding PublishDate}"/>
-            </DataTemplate>
-             -->
             </Grid.Resources>
-        <DataGrid x:Name="fDataGrid" Margin="0,0,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
+        <Label x:Name="fmLabel" Content="Журнал заявок" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Button Content="Добавить" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="72"/>
+        <DataGrid x:Name="fDataGrid" Margin="0,32,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
                   IsReadOnly="True" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Stretch" ColumnWidth="*" Background="#FFE7F0FB">
+                  HorizontalContentAlignment="Stretch" ColumnWidth="*">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="id" Binding="{Binding Id}" MaxWidth="40"/>
-                <DataGridTextColumn Header="Аптека"  Binding="{Binding Drugstore.Name}"/>
-                <DataGridTemplateColumn Header="Дата Закрытия" CellTemplate="{StaticResource DateTemplate}"/>
-                <DataGridTemplateColumn Header="Дата Открытия" CellTemplate="{StaticResource DateTemplate2}"/>
+                <DataGridTextColumn Header="Аптека"  Binding="{Binding Drugstore.Name}" MinWidth="200"/>
+                <DataGridTemplateColumn Header="Дата Закрытия" CellTemplate="{StaticResource DateIn}" MinWidth="80"/>
+                <DataGridTemplateColumn Header="Дата Открытия" CellTemplate="{StaticResource DateFinish}" MinWidth="80"/>
                 <DataGridTextColumn Header="Статус"  Binding="{Binding Status.Name}"/>
             </DataGrid.Columns>
         </DataGrid>
