@@ -18,7 +18,7 @@
             </Grid.Resources>
         <DataGrid x:Name="fDataGrid" Margin="0,0,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
                   IsReadOnly="True" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Stretch" ColumnWidth="*">
+                  HorizontalContentAlignment="Stretch" ColumnWidth="*" Background="#FFE7F0FB">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="id" Binding="{Binding Id}" MaxWidth="40"/>
                 <DataGridTextColumn Header="Название"  Binding="{Binding Name}" MinWidth="200"/>

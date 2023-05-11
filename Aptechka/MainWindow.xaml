@@ -13,6 +13,6 @@
         <Button Content="Заявки" HorizontalAlignment="Left" Height="37" Margin="10,10,0,0" VerticalAlignment="Top" Width="160" Click="Requests_Click"/>
         <Button Content="Корзина" HorizontalAlignment="Left" Margin="10,0,0,10" Width="160" Height="36" VerticalAlignment="Bottom" Click="Basket_Click"/>
 
-        <Frame x:Name="mainFrame" Margin="183,10,10,10" NavigationUIVisibility="Automatic" Grid.IsSharedSizeScope="True" UseLayoutRounding="False" Grid.ColumnSpan="2"/>
+        <Frame x:Name="mainFrame" Margin="183,10,10,10" NavigationUIVisibility="Automatic" Grid.IsSharedSizeScope="True" UseLayoutRounding="False" Grid.ColumnSpan="2" Foreground="#FFD1E2F7" Background="#FFE7F0FB"/>
     </Grid>
 </Window>

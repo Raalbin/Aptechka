@@ -26,7 +26,6 @@ namespace AptechkaWPF
         /// <summary>
         /// Конструктор формы списка заявок или списка активных корзин
         /// <param name="dbContext">контекст entity framework</param>
-        /// <param name="basket">Тип списка. 1 - корзина, 0 - обычный (default)</param>
         /// <return>Не возвращает ничего</return>
         /// </summary>
         public DrugstoresForm(AptechkaContext dbContext)
@@ -58,9 +57,18 @@ namespace AptechkaWPF
             fDataGrid.ItemsSource = drg;
         }
 
+        /// <summary>
+        /// Обработчик события загрузки формы. Отображает список аптек при октрытии.
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
         private void form_Loaded(object sender, RoutedEventArgs e)
         {
             ShowDrugstores();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
