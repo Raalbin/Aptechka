@@ -30,6 +30,11 @@ namespace AptechkaWPF
             dbcontext = dbContext;
         }
 
+        /// <summary>
+        /// Обработчик двойного нажатия левой кнопки мыши на списке поставщиков
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var prd = fDataGrid.SelectedItem;
@@ -37,10 +42,11 @@ namespace AptechkaWPF
             {
                 System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + ((Producer)prd).Name);
             }
-
-
         }
 
+        /// <summary>
+        /// Процедура загрузки данных по поставщикам из БД
+        /// </summary>
         private void ShowProducers()
         {
             List<Producer> prd = dbcontext.Producers
@@ -50,6 +56,11 @@ namespace AptechkaWPF
             fDataGrid.ItemsSource = prd;
         }
 
+        /// <summary>
+        /// Обработчик события загрузки формы. Вызывает процедуру заполнения.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void form_Loaded(object sender, RoutedEventArgs e)
         {
             ShowProducers();

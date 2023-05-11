@@ -18,9 +18,8 @@
             </DataTemplate>
         </Grid.Resources>
         <Label x:Name="fmLabel" Content="Журнал заявок" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <Button Content="Записать" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="73
-                "/>
-        <Button Content="Отменить" Margin="0,6,78,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="73"/>
+        <Button Content="Записать" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="btSave_Click"/>
+        <!-- Button Content="Отменить" Margin="0,6,66,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="61"/-->
         <Grid VerticalAlignment="Top" Margin="0,40,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".5*"></ColumnDefinition>
@@ -39,23 +38,20 @@
             <Label Grid.Column="2" Grid.Row="0" Content="Аптека"/>
             <ComboBox Name="fmDrugstore" Grid.Column="3" Grid.Row="0" IsEditable="True" IsReadOnly="True" />
             <Label Grid.Column="0" Grid.Row="1" Content="Дата открытия"/>
-            <DatePicker Grid.Column="1" Grid.Row="1" Text="{Binding DateIn}"/>
+            <DatePicker Grid.Column="1" Grid.Row="1" Text="{Binding DateIn, Mode=TwoWay}"/>
             <Label Grid.Column="2" Grid.Row="1" Content="Дата закрытия"/>
-            <DatePicker Grid.Column="3" Grid.Row="1" Text="{Binding DateFinish}" />
+            <DatePicker Grid.Column="3" Grid.Row="1" Text="{Binding DateFinish, Mode=TwoWay}"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Статус"/>
-            <ComboBox Name="fmStatus" Grid.Column="1" Grid.Row="2" IsEditable="True" IsReadOnly="True" />
-
-
-            <!-- <ComboBoxItem Name="fmStatus" Grid.Column="1" Grid.Row="2" Text="{Binding Status.Name}" /> -->
+            <ComboBox Name="fmStatus" Grid.Column="1" Grid.Row="2" IsEditable="True" IsReadOnly="True"/>
         </Grid>
         <DataGrid x:Name="fDataGrid" Margin="0,128,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
                   IsReadOnly="False" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch" ColumnWidth="*" SelectionMode="Single" EnableRowVirtualization="False" BeginningEdit="fDataGrid_BeginningEdit" CellEditEnding="fDataGrid_CellEditEnding" SelectionUnit="Cell">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="id" Binding="{Binding purch.Id}" MaxWidth="40" IsReadOnly="True"/>
-                
-                <DataGridTextColumn Header="Препарат"  Binding="{Binding drug.Name}" MinWidth="200"/>
-                
+
+                <DataGridComboBoxColumn x:Name="fDataGridDrug" SelectedItemBinding="{Binding drug}" Header="Препарат" IsReadOnly="False" MinWidth="200"/>
+
                 <DataGridTextColumn Header="Количество" Binding="{Binding count, Mode=TwoWay}" MaxWidth="60" IsReadOnly="False">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">

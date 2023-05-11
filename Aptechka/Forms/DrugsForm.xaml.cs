@@ -35,6 +35,11 @@ namespace AptechkaWPF
             dbcontext = dbContext;
         }
 
+        /// <summary>
+        /// Обработчик двойного нажатия левой кнопки мыши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var drg = fDataGrid.SelectedItem;
@@ -44,6 +49,9 @@ namespace AptechkaWPF
             }
         }
 
+        /// <summary>
+        /// Процедура загрузки медикоментов из БД
+        /// </summary>
         private void ShowDrugs()
         {
             List<Drug> drg = dbcontext.Drugs
@@ -53,6 +61,11 @@ namespace AptechkaWPF
             fDataGrid.ItemsSource = drg;
         }
 
+        /// <summary>
+        /// Обработчик события загрузки формы. Вызывает процедуру заполнения формы.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fmDrugs_Loaded(object sender, RoutedEventArgs e)
         {
             ShowDrugs();

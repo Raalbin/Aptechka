@@ -13,7 +13,7 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="14"/>
-           <!-- <Setter Property="MinWidth" Value="100"/> -->
+            <!-- <Setter Property="MinWidth" Value="100"/> -->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -35,6 +35,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="Label">
+            <Setter Property="Background" Value="#D1E2F7"/>
+            <Setter Property="Foreground" Value="#768FB0"/>
 
+        </Style>
     </Application.Resources>
 </Application>

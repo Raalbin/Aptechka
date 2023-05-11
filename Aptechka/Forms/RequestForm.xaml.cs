@@ -72,15 +72,31 @@ namespace AptechkaWPF
             fDataGrid.ContextMenu = contextMenu;
         }
 
+        /// <summary>
+        /// Обработчик конекстного меню "Редактировать"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_EditItem(object sender, RoutedEventArgs e)
         {
             OpenEditForm();
         }
+
+        /// <summary>
+        /// Обработчик контекстного меню "Добавить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_AddItem(object sender, RoutedEventArgs e)
         {
-            OpenEditForm();
+            OpenEditForm(1);
         }
 
+        /// <summary>
+        /// Обработчик контекстного меню "Удалить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_DeleteItem(object sender, RoutedEventArgs e)
         {
             Request req = (Request)fDataGrid.SelectedItem;
@@ -111,19 +127,37 @@ namespace AptechkaWPF
             ShowRequests();
         }
 
+        /// <summary>
+        /// Обработчик двойного нажатия левой кнопки мыши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             OpenEditForm();
         }
 
         /// <summary>
-        /// Процедура открывает форму редактирования текущей заявки
+        /// Процедура открывает форму редактирования заявки
         /// </summary>
-        private void OpenEditForm()
+        /// <param name="addnew">Если 1 - создаётся новая, если 0 - открывается выбранная</param>
+        private void OpenEditForm(int addnew = 0)
         {
             Request req = (Request)fDataGrid.SelectedItem;
-            MainWindow.GetNavFrame().Navigate(new RequestEditForm(dbcontext, req));  
+
+            if ((addnew == 1) || (req == null))
+            {
+                MainWindow.GetNavFrame().Navigate(new RequestEditForm(dbcontext));
+            } 
+            else
+            {
+                MainWindow.GetNavFrame().Navigate(new RequestEditForm(dbcontext, req));
+            }        
         }
+
+        /// <summary>
+        /// Процедура загрузки данных по заявкам из БД
+        /// </summary>
         private void ShowRequests()
         {
             List<Request> req;
@@ -148,9 +182,24 @@ namespace AptechkaWPF
             fDataGrid.ItemsSource = req;
         }
 
+        /// <summary>
+        /// Обработчик события загрузки формы. Вызывает процедуру заполнения.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fmRequest_Loaded(object sender, RoutedEventArgs e)
         {
             ShowRequests();
+        }
+
+        /// <summary>
+        /// Обработчик нажатия кнопки "Добавить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btClick_Add(object sender, RoutedEventArgs e)
+        {
+            OpenEditForm(1);
         }
     }
 

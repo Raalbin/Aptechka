@@ -43,8 +43,16 @@ namespace AptechkaWPF
             {
                 formType = 0;
 
-                currentItem = new Request();
+                currentItem = new Request() { DrugstoreId = 1, DateIn = DateTime.Now, StatusId = 1, DateFinish = null };
                 dbcontext.Requests.Add(currentItem);
+                try
+                {
+                    dbcontext.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("Ошибка записи заявки в базу данных!");
+                }
 
                 fmRequestEdit.Title = "Новая заявка";
                 fmLabel.Content = "Новая заявка";
@@ -81,6 +89,11 @@ namespace AptechkaWPF
             fDataGrid.ContextMenu = contextMenu;
         }
 
+        /// <summary>
+        /// Обработчик контекстного меню "Редактировать"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_EditItem(object sender, RoutedEventArgs e)
         {
             var req = fDataGrid.SelectedItem;
@@ -89,11 +102,22 @@ namespace AptechkaWPF
                 ;
             }
         }
+
+        /// <summary>
+        /// Обработчик контекстного меню "Добавить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_AddItem(object sender, RoutedEventArgs e)
         {
             ;
         }
 
+        /// <summary>
+        /// Обработчик контекстного меню "Удалить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_DeleteItem(object sender, RoutedEventArgs e)
         {
             Request req = (Request)fDataGrid.SelectedItem;
@@ -124,6 +148,11 @@ namespace AptechkaWPF
             ShowPurchases();
         }
 
+        /// <summary>
+        /// Процедура обработки двойного нажатия левой кнопки мыши.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             /*
@@ -135,6 +164,10 @@ namespace AptechkaWPF
             */
         }
 
+        /// <summary>
+        /// Процедура загрузки данных в форму. Загружается табличная часть заявки,
+        /// список аптек и список статусов заявок.
+        /// </summary>
         private void ShowPurchases()
         {
 
@@ -144,9 +177,7 @@ namespace AptechkaWPF
                 .Join(dbcontext.Drugs,
                         p => p.IdDrugs, d => d.Id, (p, d) => new PurchaseRow() { count = p.Count, purch = p, drug = d, summ = d.Price * p.Count })
                 .ToList();
-            /*
-            p => p.IdDrugs, d => d.Id, (p, d) => new PurchaseRow() { count = p.Count, id = p.Id, purch = p, drug = d, price = d.Price, summ = d.Price * p.Count })
-            */
+
             fmGrid.DataContext = currentItem;
             fDataGrid.ItemsSource = purch;
 
@@ -159,20 +190,60 @@ namespace AptechkaWPF
             fmDrugstore.DisplayMemberPath = "Name";
             fmDrugstore.SelectedValuePath = "Id";
             fmDrugstore.SelectedItem = currentItem.Drugstore;
+
+            fDataGridDrug.ItemsSource = dbcontext.Drugs.ToList();
+            fDataGridDrug.DisplayMemberPath = "Name";
+            fDataGridDrug.SelectedValuePath = "Id";
         }
 
+
+        /// <summary>
+        /// Процедура обработки события загрузки формы.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fmRequest_Loaded(object sender, RoutedEventArgs e)
         {
             ShowPurchases();
         }
 
+        /// <summary>
+        /// Обработчик события начала редактирования
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
             ;
         }
 
+        /// <summary>
+        /// Процедура обработки события окончания редактирования ячейки.
+        /// Проверяет допустимость данных и производит их сохранение.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            PurchaseRow row = (PurchaseRow)e.Row.Item;
+
+            if (row.purch == null)
+            {
+                Purchase newPurch = new Purchase() { Count = 1, IdDrugs = 1, IdRequests = currentItem.Id };
+                dbcontext.Purchases.Add(newPurch);
+                row.purch = newPurch;
+
+                dbcontext.SaveChanges();
+            }
+
+            if ((string)e.Column.Header == "Препарат")
+            {
+                row.drug = (Drug)((ComboBox)e.EditingElement).SelectedItem;
+                row.purch.IdDrugs = row.drug.Id;
+
+                row.count = (row.count == 0) || (row.count == null) ? 1 : row.count;
+            }
+
             if ((string)e.Column.Header == "Количество")
             {
                 decimal count = Decimal.Parse(((TextBox)e.EditingElement).Text);
@@ -182,45 +253,50 @@ namespace AptechkaWPF
                     e.Cancel = true;
                     return;
                 }
+                row.count = (int)count;
+                row.purch.Count = (int)count;
+            }
 
-                PurchaseRow row = (PurchaseRow)e.Row.Item;
+            dbcontext.Purchases.Update(row.purch);
 
-                if (row.purch == null)
-                {
-                    Drug? drg = row.drug == null ? dbcontext.Drugs.Find(1) : row.drug;
+            row.summ = row.drug!.Price * row.count;
+            e.Row.Item = null;
+            e.Row.Item = row;
 
-                    Purchase newPurch = new Purchase() { Count = (int)count, IdDrugs = 1, IdRequests = currentItem.Id };
-                    dbcontext.Purchases.Add(newPurch);
-                    row.purch = newPurch;
-                    row.drug = drg!;
-                }
-                else
-                { 
-                    row.count = (int)count;
-                    row.purch.Count = (int)count;
+            dbcontext.SaveChanges();
+        }
 
-                    dbcontext.Purchases.Update(row.purch);
-                }
-
-                row.summ = row.drug!.Price * count;
-                e.Row.Item = null;
-                e.Row.Item = row;
-
+        private void btSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                currentItem.DrugstoreId = ((Drugstore)fmDrugstore.SelectedItem).Id;
+                currentItem.StatusId = ((Status)fmStatus.SelectedItem).Id;
+               
+                dbcontext.Requests.Update(currentItem);
                 dbcontext.SaveChanges();
+            } 
+            catch
+            {
+                MessageBox.Show("Ошибка записи заявки в БД!\n" + e.ToString());
             }
         }
 
-        /// <summary>
-        /// Прокси класс, представляющий собой строку в таблице закупок
-        /// </summary>
-        public class PurchaseRow
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            public int? count { get; set; }
-            //            public int id { get; set; }
-            public Purchase purch { get; set; } = null!;
-            public Drug drug { get; set; } = null!;
-            //            public decimal? price { get; set; }
-            public decimal? summ { get; set; }
+
         }
     }
+
+    /// <summary>
+    /// Прокси класс, представляющий собой строку в таблице закупок
+    /// </summary>
+    public class PurchaseRow
+    {
+        public int? count { get; set; }
+        public Purchase purch { get; set; } = null!;
+        public Drug drug { get; set; } = null!;
+        public decimal? summ { get; set; }
+    }
 }
+
