@@ -18,7 +18,7 @@
             </DataTemplate>
         </Grid.Resources>
         <Label x:Name="fmLabel" Content="Журнал заявок" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <Button Content="Записать" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="btSave_Click"/>
+        <Button Content="Записать" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="61" Click="btSave_Click"/>
         <!-- Button Content="Отменить" Margin="0,6,66,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="61"/-->
         <Grid VerticalAlignment="Top" Margin="0,40,0,0">
             <Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
             <ComboBox Name="fmStatus" Grid.Column="1" Grid.Row="2" IsEditable="True" IsReadOnly="True"/>
         </Grid>
         <DataGrid x:Name="fDataGrid" Margin="0,128,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
-                  IsReadOnly="False" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
+                  IsReadOnly="False" IsManipulationEnabled="True" HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch" ColumnWidth="*" SelectionMode="Single" EnableRowVirtualization="False" BeginningEdit="fDataGrid_BeginningEdit" CellEditEnding="fDataGrid_CellEditEnding" SelectionUnit="Cell">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="id" Binding="{Binding purch.Id}" MaxWidth="40" IsReadOnly="True"/>

@@ -123,4 +123,3 @@ C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\D
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka.pdb
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka.genruntimeconfig.cache
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\ref\Aptechka.dll
-C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\App.baml

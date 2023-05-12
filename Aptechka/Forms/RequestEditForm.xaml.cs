@@ -69,18 +69,6 @@ namespace AptechkaWPF
             contextMenu = new ContextMenu();
 
             MenuItem mi = new MenuItem();
-            mi.Header = "Редактировать";
-            mi.Tag = 1;
-            mi.Click += Menu_EditItem;
-            contextMenu.Items.Add(mi);
-
-            mi = new MenuItem();
-            mi.Header = "Добавить";
-            mi.Tag = 2;
-            mi.Click += Menu_AddItem;
-            contextMenu.Items.Add(mi);
-
-            mi = new MenuItem();
             mi.Header = "Удалить";
             mi.Tag = 3;
             mi.Click += Menu_DeleteItem;
@@ -89,51 +77,27 @@ namespace AptechkaWPF
             fDataGrid.ContextMenu = contextMenu;
         }
 
-        /// <summary>
-        /// Обработчик контекстного меню "Редактировать"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Menu_EditItem(object sender, RoutedEventArgs e)
-        {
-            var req = fDataGrid.SelectedItem;
-            if (req != null)
-            {
-                ;
-            }
-        }
-
-        /// <summary>
-        /// Обработчик контекстного меню "Добавить"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Menu_AddItem(object sender, RoutedEventArgs e)
-        {
-            ;
-        }
-
-        /// <summary>
+         /// <summary>
         /// Обработчик контекстного меню "Удалить"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Menu_DeleteItem(object sender, RoutedEventArgs e)
         {
-            Request req = (Request)fDataGrid.SelectedItem;
+            PurchaseRow prow = ((PurchaseRow)fDataGrid.CurrentItem);
 
-            if (req != null)
+            if (prow!.purch != null)
             {
 
                 MessageBoxResult rez = MessageBox.Show("Вы действительно хотите удалить запись " +
-                    req.Id + ", " + req.Drugstore!.Name + "?",
+                    prow!.purch.Id + ", " + prow.drug!.Name + "?",
                     "Винимание!",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
 
                 if (rez != MessageBoxResult.Yes) { return; }
 
-                dbcontext.Requests.Remove(req);
+                dbcontext.Purchases.Remove(prow.purch);
                 try
                 {
                     dbcontext.SaveChanges();
@@ -146,22 +110,6 @@ namespace AptechkaWPF
             }
 
             ShowPurchases();
-        }
-
-        /// <summary>
-        /// Процедура обработки двойного нажатия левой кнопки мыши.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            /*
-            var req = fDataGrid.SelectedItem!.GetType().GetMember("Name");
-            if (req != null)
-            {
-                System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + req);
-            }
-            */
         }
 
         /// <summary>
@@ -239,6 +187,9 @@ namespace AptechkaWPF
             if ((string)e.Column.Header == "Препарат")
             {
                 row.drug = (Drug)((ComboBox)e.EditingElement).SelectedItem;
+
+                if (row.drug == null) { e.Cancel = true; return; }
+
                 row.purch.IdDrugs = row.drug.Id;
 
                 row.count = (row.count == 0) || (row.count == null) ? 1 : row.count;
@@ -257,15 +208,27 @@ namespace AptechkaWPF
                 row.purch.Count = (int)count;
             }
 
-            dbcontext.Purchases.Update(row.purch);
+            try
+            {
+                dbcontext.Purchases.Update(row.purch);
 
-            row.summ = row.drug!.Price * row.count;
-            e.Row.Item = null;
-            e.Row.Item = row;
+                row.summ = row.drug!.Price * row.count;
+                e.Row.Item = null;
+                e.Row.Item = row;
 
-            dbcontext.SaveChanges();
+                dbcontext.SaveChanges();
+            }
+            catch
+            {
+                ;
+            }
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки "Сохранить", записывает данные в БД
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -275,6 +238,8 @@ namespace AptechkaWPF
                
                 dbcontext.Requests.Update(currentItem);
                 dbcontext.SaveChanges();
+
+                MessageBox.Show("Данные сохранены в БД!\n", "Сохранение данных", MessageBoxButton.OK, MessageBoxImage.Information);
             } 
             catch
             {
@@ -282,10 +247,6 @@ namespace AptechkaWPF
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 
     /// <summary>
