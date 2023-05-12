@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Справочник Медикаментов" Loaded="fmDrugs_Loaded" >
 
-        <Grid Margin="0,0,0,0">
+        <Grid Margin="0,0,0,0" Background="#FFE7F0FB">
             <Grid.Resources>
             <DataTemplate x:Key="DateOfManufacture" >
                 <!-- 0:ddd dd MMM yyyy HH:MM -->
@@ -17,18 +17,19 @@
                 <TextBlock Text="{Binding BestBeforeDate, StringFormat={}{0:dd MMM yyyy}}" HorizontalAlignment="Center" />
             </DataTemplate>
             </Grid.Resources>
-        <Label Content="Справочник лекарств" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <Button Content="Добавить" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="61"/>
+        <Label Content="Справочник лекарств" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF768FB0" Background="{x:Null}"/>
+        <Button Content="Добавить" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80
+                "/>
         <DataGrid x:Name="fDataGrid" Margin="0,32,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
                   IsReadOnly="True" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Stretch" ColumnWidth="*">
+                  HorizontalContentAlignment="Stretch" ColumnWidth="*" Background="#FFE7F0FB" Foreground="#FF768FB0" FontWeight="Bold">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="id" Binding="{Binding Id}" MaxWidth="40"/>
-                <DataGridTextColumn Header="Название"  Binding="{Binding Name}" MinWidth="300"/>
-                <DataGridTemplateColumn Header="Дата производства" CellTemplate="{StaticResource DateOfManufacture}" MinWidth="60" MaxWidth="80"/>
-                <DataGridTemplateColumn Header="Срок годности" CellTemplate="{StaticResource BestBeforeDate}" MinWidth="60" MaxWidth="80"/>
+                <DataGridTextColumn Header="id" Binding="{Binding Id}" MaxWidth="40" />
+                <DataGridTextColumn Header="Название"  Binding="{Binding Name}" MinWidth="250"/>
+                <DataGridTemplateColumn Header="Дата производства" CellTemplate="{StaticResource DateOfManufacture}" MinWidth="150" MaxWidth="150"/>
+                <DataGridTemplateColumn Header="Срок годности" CellTemplate="{StaticResource BestBeforeDate}" MinWidth="100" MaxWidth="100"/>
                 <DataGridTextColumn Header="Цена"  Binding="{Binding Price}" MinWidth="60" MaxWidth="80"/>
-                <DataGridTextColumn Header="Производитель"  Binding="{Binding Producer.Name}" MaxWidth="150"/>
+                <DataGridTextColumn Header="Производитель"  Binding="{Binding Producer.Name}" MinWidth="200" MaxWidth="200"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

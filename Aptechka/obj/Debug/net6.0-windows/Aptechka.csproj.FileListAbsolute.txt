@@ -106,6 +106,7 @@ C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\D
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\App.g.cs
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka_MarkupCompile.cache
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Aptechka_MarkupCompile.lref
+C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\App.baml
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\DrugsForm.baml
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\DrugstoresForm.baml
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\obj\Debug\net6.0-windows\Forms\ProducersForm.baml
