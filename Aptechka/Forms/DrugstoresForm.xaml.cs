@@ -68,11 +68,7 @@ namespace AptechkaWPF
         /// </summary>
         private void Menu_EditItem(object sender, RoutedEventArgs e)
         {
-            var req = fDataGrid.SelectedItem;
-            if (req != null)
-            {
-                ;
-            }
+            OpenEditForm();
         }
 
         /// <summary>
@@ -82,7 +78,7 @@ namespace AptechkaWPF
         /// </summary>
         private void Menu_AddItem(object sender, RoutedEventArgs e)
         {
-            ;
+            OpenEditForm(1);
         }
 
         /// <summary>
@@ -124,13 +120,7 @@ namespace AptechkaWPF
         /// </summary>
         private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Drugstore drg = (Drugstore)fDataGrid.SelectedItem;
-            if (drg != null)
-            {
-                System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + drg.Name);
-            }
-
-
+            OpenEditForm();
         }
 
         /// <summary>
@@ -141,12 +131,39 @@ namespace AptechkaWPF
         {
             List<Drugstore> drg;
 
+            string searchStr = tbSearch.Text.ToLower().Trim();
+
             drg = dbcontext.Drugstores
                 .Include(d => d.Address)
+                .ToList()
+                .Where(d => d.Name!.ToLower().Contains(searchStr)
+                            || d.PharmacyInn!.ToLower().Contains(searchStr)
+                            || d.Address!.Name.ToLower().Contains(searchStr)
+                            || d.Telephone!.ToLower().Contains(searchStr)
+                        )
                 .ToList();
 
             fDataGrid.ItemsSource = drg;
         }
+
+        /// <summary>
+        /// Процедура открывает форму редактирования аптеки
+        /// </summary>
+        /// <param name="addnew">Если 1 - создаётся новая, если 0 - открывается выбранная</param>
+        private void OpenEditForm(int addnew = 0)
+        {
+            Drugstore req = (Drugstore)fDataGrid.SelectedItem;
+
+            if ((addnew == 1) || (req == null))
+            {
+                MainWindow.GetNavFrame().Navigate(new DrugstoreEditForm(dbcontext));
+            }
+            else
+            {
+                MainWindow.GetNavFrame().Navigate(new DrugstoreEditForm(dbcontext, req));
+            }
+        }
+
 
         /// <summary>
         /// Обработчик события загрузки формы. Отображает список аптек при октрытии.
@@ -157,12 +174,22 @@ namespace AptechkaWPF
             ShowDrugstores();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Обработчик строки поиска. При изменении данные перезапрашиваются
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            ShowDrugstores();
         }
 
-        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void btAdd_Click(object sender, RoutedEventArgs e)
+        {
+            OpenEditForm(1);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

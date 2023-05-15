@@ -49,8 +49,17 @@ namespace AptechkaWPF
         /// </summary>
         private void ShowProducers()
         {
+            string searchStr = tbSearch.Text.ToLower().Trim();
+
             List<Producer> prd = dbcontext.Producers
                 .Include(d => d.Address)
+                .ToList()
+                .Where(p => p.Name!.ToLower().Contains(searchStr)
+                            || p.Email!.ToLower().Contains(searchStr)
+                            || p.LicanceNumber!.ToLower().Contains(searchStr)
+                            || p.Telephone!.ToLower().Contains(searchStr)
+                            || p.Address!.Name.ToLower().Contains(searchStr)
+                        )
                 .ToList();
 
             fDataGrid.ItemsSource = prd;
@@ -66,9 +75,14 @@ namespace AptechkaWPF
             ShowProducers();
         }
 
+        /// <summary>
+        /// Обработчик строки поиска. При изменении данные перезапрашиваются
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            ShowProducers();
         }
     }
 

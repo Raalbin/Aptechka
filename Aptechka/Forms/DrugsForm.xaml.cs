@@ -54,8 +54,17 @@ namespace AptechkaWPF
         /// </summary>
         private void ShowDrugs()
         {
+            string searchStr = tbSearch.Text.ToLower().Trim();
+
             List<Drug> drg = dbcontext.Drugs
                 .Include(d => d.Producer)
+                .ToList()
+                .Where(d => d.Name!.ToLower().Contains(searchStr)
+                            || d.Price!.ToString()!.ToLower().Contains(searchStr)
+                            || d.Producer!.Name!.ToLower().Contains(searchStr)
+                            || d.DateOfManufacture!.ToString()!.ToLower().Contains(searchStr)
+                            || d.BestBeforeDate!.ToString()!.ToLower().Contains(searchStr)
+                        )
                 .ToList();
 
             fDataGrid.ItemsSource = drg;
@@ -71,10 +80,16 @@ namespace AptechkaWPF
             ShowDrugs();
         }
 
+        /// <summary>
+        /// Обработчик строки поиска. При изменении данные перезапрашиваются
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            ShowDrugs();
         }
+
     }
 
 }

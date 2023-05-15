@@ -20,9 +20,6 @@ namespace AptechkaWPF
 
         private AptechkaContext dbcontext;
 
-        //formType = 0 - новая заявка
-        //formType = 1 - редактирование
-        private readonly int formType;
         private ContextMenu contextMenu;
         private Request currentItem;
 
@@ -41,8 +38,6 @@ namespace AptechkaWPF
             // Если параметр item null, то это форма создания новой заявки
             if (item == null)
             {
-                formType = 0;
-
                 currentItem = new Request() { DrugstoreId = 1, DateIn = DateTime.Now, StatusId = 1, DateFinish = null };
                 dbcontext.Requests.Add(currentItem);
                 try
@@ -59,7 +54,6 @@ namespace AptechkaWPF
             }
             else
             {
-                formType = 1;
                 currentItem = item;
 
                 fmRequestEdit.Title = "Редактирование заявки";
@@ -77,7 +71,7 @@ namespace AptechkaWPF
             fDataGrid.ContextMenu = contextMenu;
         }
 
-         /// <summary>
+        /// <summary>
         /// Обработчик контекстного меню "Удалить"
         /// </summary>
         /// <param name="sender"></param>

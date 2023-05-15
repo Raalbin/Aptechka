@@ -104,10 +104,10 @@ namespace AptechkaWPF
             if (req != null)
             {
 
-                MessageBoxResult rez = MessageBox.Show("Вы действительно хотите удалить запись " + 
-                    req.Id + ", " + req.Drugstore!.Name + "?", 
-                    "Винимание!", 
-                    MessageBoxButton.YesNo, 
+                MessageBoxResult rez = MessageBox.Show("Вы действительно хотите удалить запись " +
+                    req.Id + ", " + req.Drugstore!.Name + "?",
+                    "Винимание!",
+                    MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
 
                 if (rez != MessageBoxResult.Yes) { return; }
@@ -148,11 +148,11 @@ namespace AptechkaWPF
             if ((addnew == 1) || (req == null))
             {
                 MainWindow.GetNavFrame().Navigate(new RequestEditForm(dbcontext));
-            } 
+            }
             else
             {
                 MainWindow.GetNavFrame().Navigate(new RequestEditForm(dbcontext, req));
-            }        
+            }
         }
 
         /// <summary>
@@ -161,6 +161,7 @@ namespace AptechkaWPF
         private void ShowRequests()
         {
             List<Request> req;
+            string searchStr = tbSearch.Text.ToLower().Trim();
 
             if (formType == 0)
             {
@@ -168,7 +169,14 @@ namespace AptechkaWPF
                 .Where(r => r.Status!.Code != 100)
                 .Include(r => r.Status)
                 .Include(r => r.Drugstore)
+                .ToList()
+                .Where(r => r.Drugstore!.Name!.ToLower().Contains(searchStr)
+                            || r.DateIn!.ToString()!.Contains(searchStr)
+                            || r.DateFinish!.ToString()!.Contains(searchStr)
+                            || r.Status!.Name!.ToLower().Contains(searchStr)
+                        )
                 .ToList();
+
             }
             else
             {
@@ -176,6 +184,12 @@ namespace AptechkaWPF
                     .Where(r => r.Status!.Code == 100)
                     .Include(r => r.Status)
                     .Include(r => r.Drugstore)
+                    .ToList()
+                    .Where(r => r.Drugstore!.Name!.ToLower().Contains(searchStr)
+                                || r.DateIn!.ToString()!.Contains(searchStr)
+                                || r.DateFinish!.ToString()!.Contains(searchStr)
+                                || r.Status!.Name!.ToLower().Contains(searchStr)
+                            )
                     .ToList();
             }
 
@@ -202,14 +216,15 @@ namespace AptechkaWPF
             OpenEditForm(1);
         }
 
-        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        /// <summary>
+        /// Обработчик строки поиска. При изменении данные перезапрашиваются
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void tbSearch_TextChanged_1(object sender, TextChangedEventArgs e)
         {
-
+            ShowRequests();
         }
     }
 
