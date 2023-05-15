@@ -229,12 +229,12 @@ namespace AptechkaWPF
             {
                 currentItem.DrugstoreId = ((Drugstore)fmDrugstore.SelectedItem).Id;
                 currentItem.StatusId = ((Status)fmStatus.SelectedItem).Id;
-               
+
                 dbcontext.Requests.Update(currentItem);
                 dbcontext.SaveChanges();
 
                 MessageBox.Show("Данные сохранены в БД!\n", "Сохранение данных", MessageBoxButton.OK, MessageBoxImage.Information);
-            } 
+            }
             catch
             {
                 MessageBox.Show("Ошибка записи заявки в БД!\n" + e.ToString());
