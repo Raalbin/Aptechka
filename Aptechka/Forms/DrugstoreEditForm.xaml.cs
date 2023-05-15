@@ -65,9 +65,10 @@ namespace AptechkaWPF
         /// Процедура загрузки данных в форму. 
         /// </summary>
         private void ShowDrugstore()
-        { 
-            fmGrid.DataContext = currentItem;
-            fmAddr.Text = dbcontext.Addresses.Find(currentItem.Id)!.Name;
+        {
+            dbcontext.Addresses.Load();
+            fmGrid.DataContext = dbcontext.Drugstores.Find(currentItem.Id);
+            fmAddr.Text = dbcontext.Addresses.Find(currentItem.AddressId)!.Name;
         }
 
 
@@ -88,12 +89,13 @@ namespace AptechkaWPF
         /// <param name="e"></param>
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
+            currentItem.Name = fmName.Text;
+            currentItem.Telephone = fmPhone.Text;
+            currentItem.PharmacyInn = fmINN.Text;
+
             try
             {
-                currentItem.Name = fmName.Text;
-                currentItem.Telephone = fmPhone.Text;
-                currentItem.PharmacyInn = fmINN.Text;
-
+            
                 dbcontext.Drugstores.Update(currentItem);
                 dbcontext.SaveChanges();
 
@@ -105,9 +107,44 @@ namespace AptechkaWPF
             }
         }
 
+        
+
+
+       
+
         private void fmAddr_MouseEnter(object sender, MouseEventArgs e)
         {
-            //new AddressForm(dbcontext).Show();
+            {
+                {
+                    List<Address> addr = new List<Address> { dbcontext.Addresses.Find(currentItem.AddressId)! };
+
+                    AddressForm addrFm = new AddressForm(dbcontext, addr);
+                    addrFm.ShowDialog();
+
+                    if (addr[0] != null)
+                    {
+                        fmAddr.Text = addr[0].Name;
+                        currentItem.AddressId = addr[0].Id;
+                    }
+                    else
+                    {
+                        fmAddr.Text = "<Адрес не задан>";
+                        currentItem.AddressId = null;
+                    }
+
+                    try
+                    {
+                        dbcontext.Drugstores.Update(currentItem);
+                        dbcontext.SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Ошибка записи аптеки в БД!\n" + e.ToString());
+                    }
+
+                    ShowDrugstore();
+                }
+            }
         }
     }
 }

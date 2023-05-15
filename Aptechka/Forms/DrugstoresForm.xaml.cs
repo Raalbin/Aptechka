@@ -184,14 +184,9 @@ namespace AptechkaWPF
             ShowDrugstores();
         }
 
-        private void btAdd_Click(object sender, RoutedEventArgs e)
-        {
-            OpenEditForm(1);
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenEditForm(1);
         }
     }
 
