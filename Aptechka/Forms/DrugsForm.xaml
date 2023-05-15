@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Справочник Медикаментов" Loaded="fmDrugs_Loaded" >
 
-        <Grid Margin="0,0,0,0" Background="#FFE7F0FB">
-            <Grid.Resources>
+    <Grid Margin="0,0,0,0" Background="#FFE7F0FB">
+        <Grid.Resources>
             <DataTemplate x:Key="DateOfManufacture" >
                 <!-- 0:ddd dd MMM yyyy HH:MM -->
                 <TextBlock Text="{Binding DateOfManufacture, StringFormat={}{0:dd MMM yyyy}}" HorizontalAlignment="Center" />
@@ -16,10 +16,20 @@
             <DataTemplate x:Key="BestBeforeDate" >
                 <TextBlock Text="{Binding BestBeforeDate, StringFormat={}{0:dd MMM yyyy}}" HorizontalAlignment="Center" />
             </DataTemplate>
-            </Grid.Resources>
+        </Grid.Resources>
         <Label Content="Справочник лекарств" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF768FB0" Background="{x:Null}"/>
-        <Button Content="Добавить" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80
-                "/>
+        <Button Content="Добавить" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80 "/>
+        <Image HorizontalAlignment="Right" Height="17" Margin="0,8,210,0" VerticalAlignment="Top" Width="17" Source="/Image/search_ico.png" Stretch="UniformToFill" RenderTransformOrigin="0.961,0.549">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-15.674"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <TextBox x:Name="tbSearch" Margin="0,7,85,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120" TextChanged="tbSearch_TextChanged" ToolTip="Введите текст для поиска"/>
         <DataGrid x:Name="fDataGrid" Margin="0,32,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
                   IsReadOnly="True" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"  HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch" ColumnWidth="*" Background="#FFE7F0FB" Foreground="#FF768FB0" FontWeight="Bold">

@@ -161,6 +161,11 @@ namespace AptechkaWPF
         {
 
         }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
 }

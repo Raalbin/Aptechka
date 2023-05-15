@@ -65,6 +65,11 @@ namespace AptechkaWPF
         {
             ShowProducers();
         }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
 }

@@ -18,15 +18,24 @@
             </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="107*"/>
-            <ColumnDefinition Width="94*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label x:Name="fmLabel" Content="Журнал заявок" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF768FB0"/>
-        <Button Content="Добавить" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80
-                " Click="btClick_Add" Grid.Column="1"/>
+        <Button Content="Добавить" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Click="btClick_Add"/>
+        <Image HorizontalAlignment="Right" Height="17" Margin="0,8,210,0" VerticalAlignment="Top" Width="17" Source="/Image/search_ico.png" Stretch="UniformToFill" RenderTransformOrigin="0.961,0.549">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-15.674"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <TextBox x:Name="tbSearch" Margin="0,7,85,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120" TextChanged="tbSearch_TextChanged_1" ToolTip="Введите текст для поиска"/>
         <DataGrid x:Name="fDataGrid" Margin="0,32,0,0" FrozenColumnCount="1" IsTextSearchEnabled="True" AutoGenerateColumns="False"
                   IsReadOnly="True" IsManipulationEnabled="True" MouseDoubleClick="fDataGrid_MouseDoubleClick"
-                  HorizontalContentAlignment="Stretch" ColumnWidth="*" Grid.ColumnSpan="2" Background="#FFE7F0FB" Foreground="#FF768FB0" FontWeight="Bold">
+                  HorizontalContentAlignment="Stretch" ColumnWidth="*" Background="#FFE7F0FB" Foreground="#FF768FB0" FontWeight="Bold">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="id" Binding="{Binding Id}" MaxWidth="40"/>
                 <DataGridTextColumn Header="Аптека"  Binding="{Binding Drugstore.Name}" MinWidth="200"/>

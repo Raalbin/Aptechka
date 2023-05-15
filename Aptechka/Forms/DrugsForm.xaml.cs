@@ -70,6 +70,11 @@ namespace AptechkaWPF
         {
             ShowDrugs();
         }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
 }

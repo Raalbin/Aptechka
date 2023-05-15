@@ -201,6 +201,16 @@ namespace AptechkaWPF
         {
             OpenEditForm(1);
         }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void tbSearch_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
 }
