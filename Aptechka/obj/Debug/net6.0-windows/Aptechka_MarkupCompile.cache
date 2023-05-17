@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\tkach\OneDrive\Рабочий стол\Aptechka\Aptechka\Aptechka\App.xaml
-9-2085826390
+101550459806
 
-20-1201457140
+211840601019
 217-83980117
-Forms\AddressForm.xaml;Forms\DrugsForm.xaml;Forms\DrugstoreEditForm.xaml;Forms\DrugstoresForm.xaml;Forms\ProducerEditForm.xaml;Forms\ProducersForm.xaml;Forms\RequestEditForm.xaml;Forms\RequestForm.xaml;MainWindow.xaml;
+Forms\AddressForm.xaml;Forms\DrugEditForm.xaml;Forms\DrugsForm.xaml;Forms\DrugstoreEditForm.xaml;Forms\DrugstoresForm.xaml;Forms\ProducerEditForm.xaml;Forms\ProducersForm.xaml;Forms\RequestEditForm.xaml;Forms\RequestForm.xaml;MainWindow.xaml;
 
 False
 

@@ -15,13 +15,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AptechkaWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для Request.xaml
-    /// </summary>
+
     public sealed partial class DrugsForm : Page
     {
 
         private AptechkaContext dbcontext;
+        private ContextMenu contextMenu;
 
         /// <summary>
         /// Конструктор формы списка медикаментов
@@ -33,24 +32,115 @@ namespace AptechkaWPF
             InitializeComponent();
 
             dbcontext = dbContext;
+
+            // Создаём контекстное меню для элемента DataGrid
+            //{
+            contextMenu = new ContextMenu();
+
+            MenuItem mi = new MenuItem();
+            mi.Header = "Редактировать";
+            mi.Tag = 1;
+            mi.Click += Menu_EditItem;
+            contextMenu.Items.Add(mi);
+
+            mi = new MenuItem();
+            mi.Header = "Добавить";
+            mi.Tag = 2;
+            mi.Click += Menu_AddItem;
+            contextMenu.Items.Add(mi);
+
+            mi = new MenuItem();
+            mi.Header = "Удалить";
+            mi.Tag = 3;
+            mi.Click += Menu_DeleteItem;
+            contextMenu.Items.Add(mi);
+            //}
+
+            fDataGrid.ContextMenu = contextMenu;
         }
 
         /// <summary>
-        /// Обработчик двойного нажатия левой кнопки мыши
+        /// Обработчик контекстного пункта меню "Редактировать"
+        /// открывает форму редактирования текущей записи
+        /// <return>Не возвращает ничего</return>
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Menu_EditItem(object sender, RoutedEventArgs e)
         {
-            var drg = fDataGrid.SelectedItem;
+            OpenEditForm();
+        }
+
+        /// <summary>
+        /// Обработчик контекстного пункта меню "Добавить"
+        /// открывает форму редактирования новой записи
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
+        private void Menu_AddItem(object sender, RoutedEventArgs e)
+        {
+            OpenEditForm(1);
+        }
+
+        /// <summary>
+        /// Обработчик контекстного пункта меню "Удалить"
+        /// удаляет текущую строку из базы данных
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
+        private void Menu_DeleteItem(object sender, RoutedEventArgs e)
+        {
+            Drug drg = (Drug)fDataGrid.SelectedItem;
+
             if (drg != null)
             {
-                System.Windows.MessageBox.Show("Здесь редактируем выбранную строку" + ", " + ((Drug)drg).Name);
+
+                MessageBoxResult rez = MessageBox.Show("Вы действительно хотите удалить запись " + drg.Name + "?", "Винимание!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (rez != MessageBoxResult.Yes) { return; }
+
+                dbcontext.Drugs.Remove(drg);
+
+                try
+                {
+                    dbcontext.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    System.Windows.MessageBox.Show("Произошла ошибка при удалении строки!\n" + e);
+                }
+
+            }
+
+            ShowDrugs();
+        }
+
+        /// <summary>
+        /// Обработчик двойного нажатия в элементе DataGrid. При двойном щелчке
+        /// открывается форма редактирования выбранной строки.
+        /// <return>Не возвращает ничего</return>
+        /// </summary>
+        private void fDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OpenEditForm();
+        }
+
+        /// <summary>
+        /// Процедура открывает форму редактирования медикамента
+        /// </summary>
+        /// <param name="addnew">Если 1 - создаётся новый, если 0 - открывается выбранный</param>
+        private void OpenEditForm(int addnew = 0)
+        {
+            Drug req = (Drug)fDataGrid.SelectedItem;
+
+            if ((addnew == 1) || (req == null))
+            {
+                MainWindow.GetNavFrame().Navigate(new DrugEditForm(dbcontext));
+            }
+            else
+            {
+                MainWindow.GetNavFrame().Navigate(new DrugEditForm(dbcontext, req));
             }
         }
 
         /// <summary>
-        /// Процедура загрузки медикоментов из БД
+        /// Процедура загрузки медикаментов из БД
         /// </summary>
         private void ShowDrugs()
         {
@@ -90,6 +180,15 @@ namespace AptechkaWPF
             ShowDrugs();
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки "Добавить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btAdd_Click(object sender, RoutedEventArgs e)
+        {
+            OpenEditForm(1);
+        }
     }
 
 }
